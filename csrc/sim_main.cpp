@@ -59,26 +59,26 @@ int main(int argc, char** argv, char** env) {
 #endif
 
     // Set some inputs
-    top->reset = !0;
+    top->reset = 0;
 //    top->fastclk = 0;
 //    top->clk = 0;
 
     // Simulate until $finish
-    while (!Verilated::gotFinish() && main_time < 8000 && top->io_ecall_break != 1) {
+    while (!Verilated::gotFinish() && main_time < 300 && top->io_ecall_break != 1) {
         main_time++;  // Time passes...
 
         // Toggle clocks and such
 //        top->fastclk = !top->fastclk;
-        if ((main_time % 10) == 9) {
+        if ((main_time % 10) == 5) {
             top->clock = 1;
         }
         if ((main_time % 10) == 1) {
             top->clock = 0;
         }
         if (main_time > 1 && main_time < 10) {
-            top->reset = !1;  // Assert reset
+            top->reset = 1;  // Assert reset
         } else {
-            top->reset = !0;  // Deassert reset
+            top->reset = 0;  // Deassert reset
         }
 
         // Evaluate model
