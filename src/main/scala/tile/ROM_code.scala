@@ -29,14 +29,15 @@ class ROM_code extends Module {
   })
 
   val m = VecInit( 
-    0x00000093.U, // 80000048: li   ra,0
+    0x00000093.U, // 80000048: li   ra,0  (actually addi with rs0)
     0x00000113.U, // 8000004c: li   sp,0
     0x00000193.U, // 80000050: li	gp,0
     0x00000213.U, // 80000054: li	tp,0
     0x00000293.U, // 80000058: li	t0,0
     ) //
+
   when( io.CS ) {
-    io.out := m(io.addr)
+    io.out := m(io.addr >> 2)
   }.otherwise {
     io.out := 0.U
   }
